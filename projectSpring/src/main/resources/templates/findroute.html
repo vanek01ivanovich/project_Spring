@@ -1,0 +1,107 @@
+<html lang="en" xmlns:form="http://www.w3.org/1999/html"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/findroute.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand" href="/users">Navbar</a>
+
+
+
+            <form>
+                <button id="en" th:text="#{en}"></button>
+                <button id="ukr" th:text="#{ua}"></button>
+            </form>
+           <!-- <form action="/users">
+                <button type="submit">Home</button>
+            </form>
+      -->
+    </nav>
+
+</header>
+<div class="container">
+<div class="card-header">
+    Choose Route
+</div>
+<div class="card text-center">
+    <div class="card-body">
+        <div th:if="${notFound}">
+            <div class="alert alert-info" role="alert" th:text="#{route.not.found}"></div>
+        </div>
+        <form modelAttribute="findRoutesForm" method="post" id="mainForm">
+
+
+            <div th:if="${type} == 'hidden'" class="inputForm">
+                <div>
+                    <span th:text="#{find.route.from}"></span>
+                </div>
+                <label>
+                    <input  type="text" name="stationFrom" required >
+                </label>
+            </div>
+
+            <div th:if="${type} == 'hidden'" class="inputForm">
+                <div>
+                    <span th:text="#{find.route.to}"></span>
+                </div>
+                <label>
+                    <input type="text" name="stationTo" required>
+                </label>
+            </div>
+
+            <div th:if="${type} == 'NotHidden'" class="inputForm">
+                <div>
+                    <span th:text="#{find.route.from}"></span>
+                </div>
+                <label >
+                    <input type="text" name="stationFromUkr" required>
+                </label>
+            </div>
+            <div th:if="${type} == 'NotHidden'" class="inputForm">
+                <div>
+                    <span th:text="#{find.route.to}"></span>
+                </div>
+                <label>
+                    <input type="text" name="stationToUkr" required>
+                </label>
+            </div>
+
+            <div>
+                <span th:text="#{find.route.date}"></span>
+            </div>
+            <label>
+                <input type="date" name="date">
+            </label>
+
+            <div class="card-footer text-muted">
+                <button type="submit" th:text="#{find.route}"></button>
+            </div>
+        </form>
+    </div>
+</div>
+</div>
+
+
+<footer class="text-white bg-dark">
+    <div id="footer" class="card-footer text-muted text-white bg-dark">© 2020 Copyright:All rights reserved</div>
+</footer>
+
+<script type="text/javascript" src="/js/language.js" ></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>>
+<script>
+    var alertt = [[${alertTicket}]]
+    if(alertt === 1){
+        swal({
+            icon:"success",
+            text:"Ticket!"
+        });
+    }
+</script>
+</body>
+</html>

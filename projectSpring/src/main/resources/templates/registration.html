@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous">
+        <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="/css/headerFooter.css">
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand" href="/login">Navbar</a>
+        <form>
+            <button id="en" th:text="#{en}"></button>
+            <button id="ukr" th:text="#{ua}"></button>
+        </form>
+    </nav>
+
+</header>
+    <div class="container">
+        <!--action="/registration/save"-->
+        <form  th:object="${user}"  method="POST">
+            <div class="form-group" th:classappend="${#fields.hasErrors('userName')} ? 'input-icon right' : ''">
+                <label>
+                   <!-- <i th:if="${#fields.hasErrors('userName')}" class="fa fa-exclamation tooltips" th:text="scdesd"  data-original-title="please enter a valid user name" data-container="body"></i>
+                  -->  <input type="text" name="userName" th:field="*{userName}" class="form-control" placeholder="Enter user name" required>
+                    <span th:if="${#fields.hasErrors('userName')}" class="help-block"  th:errors="*{userName}"></span>
+                </label>
+            </div>
+            <div class="form-group">
+                <label>
+                    <i th:if="${#fields.hasErrors('firstName')}" class="fa fa-exclamation tooltips" data-original-title="please enter a valid user name" data-container="body"></i>
+                    <input type="text" name="firstName" th:field="*{firstName}" class="form-control" placeholder="Enter first name" required>
+                    <span th:if="${#fields.hasErrors('firstName')}" class="help-block" th:errors="*{firstName}"></span>
+                </label>
+            </div>
+            <div class="form-group">
+                <label>
+                    <i th:if="${#fields.hasErrors('firstNameUkr')}" class="fa fa-exclamation tooltips" data-original-title="please enter a valid user name" data-container="body"></i>
+                    <input type="text" name="firstNameUkr" th:field="*{firstNameUkr}" class="form-control"   placeholder="Введіть ваше ім'я" required>
+                    <span th:if="${#fields.hasErrors('firstNameUkr')}" class="help-block" th:errors="*{firstNameUkr}"></span>
+                </label>
+            </div>
+            <div class="form-group">
+                <label>
+                    <i th:if="${#fields.hasErrors('lastName')}" class="fa fa-exclamation tooltips" data-original-title="please enter a valid user name" data-container="body"></i>
+                    <input type="text" name="lastName" th:field="*{lastName}" class="form-control" placeholder="Enter last name" required>
+                    <span th:if="${#fields.hasErrors('lastName')}" class="help-block" th:errors="*{lastName}"></span>
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label>
+                    <i th:if="${#fields.hasErrors('lastNameUkr')}" class="fa fa-exclamation tooltips" data-original-title="please enter a valid user name" data-container="body"></i>
+                    <input type="text" name="lastNameUkr" th:field="*{lastNameUkr}" class="form-control" placeholder="Введіть ваше прізвище" required>
+                    <span th:if="${#fields.hasErrors('lastNameUkr')}" class="help-block" th:errors="*{lastNameUkr}"></span>
+                </label>
+            </div>
+            <div class="form-group">
+                <label>
+                    <input type="password" name="password"  class="form-control"  aria-describedby="emailHelp" placeholder="Enter password" required>
+                </label>
+            </div>
+
+
+            <button type="submit" id="button" class="btn btn-primary" th:text="#{submit.sig.in.button}"></button>
+        </form>
+    </div>
+
+
+    <footer class="text-white bg-dark">
+        <div id="footer" class="card-footer text-muted text-white bg-dark">© 2020 Copyright:All rights reserved</div>
+    </footer>
+
+<script type="text/javascript" src="/js/language.js" ></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+    var alertt = [[${alert}]]
+    if (alertt === 0){
+        swal({
+            icon:"error",
+            text:"exist"
+        });
+    }
+</script>
+</body>
+</html>

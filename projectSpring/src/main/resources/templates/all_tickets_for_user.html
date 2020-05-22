@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="/css/allstaff.css">
+    <link rel="stylesheet" type="text/css" href="/css/headerFooter.css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous">
+
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand" href="/users">Navbar</a>
+            <form>
+            <button id="en" th:text="#{en}"></button>
+            <button id="ukr" th:text="#{ua}"></button>
+        </form>
+
+    </nav>
+
+</header>
+
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th th:text="#{admin.all.ticket.first.name}"></th>
+                <th th:text="#{admin.all.ticket.last.name}"></th>
+                <th th:text="#{admin.all.tickets.station.from}"></th>
+                <th th:text="#{admin.all.tickets.station.to}"></th>
+                <th th:text="#{admin.all.tickets.train.name}"></th>
+                <th th:text="#{admin.all.tickets.price}"></th>
+                <th th:text="#{admin.all.tickets.date.departure}"></th>
+                <th th:text="#{admin.all.tickets.date.arrival}"></th>
+                <th th:text="#{admin.all.tickets.time.departure}"></th>
+                <th th:text="#{admin.all.tickets.time.arrival}"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="ticket : ${allTicketsForUser}">
+                <form name="form">
+
+                    <!-------------------EN---------------------->
+                    <th th:if="${type} == 'hidden'"><label><input name="userFirstNameForTicket" th:value="${ticket.userFirstNameForTicket}" readonly></label></th>
+                    <th th:if="${type} == 'hidden'"><label><input name="userLastNameForTicket" th:value="${ticket.userLastNameForTicket}" readonly></label></th>
+                    <!------------------EN----------------------->
+                    <th th:if="${type} == 'hidden'"><label><input name="stationFrom" th:value="${ticket.stationFrom}" readonly></label></th>
+                    <th th:if="${type} == 'hidden'"><label><input name="stationTo" th:value="${ticket.stationTo}" readonly></label></th>
+                    <!----------------------------------------->
+
+                    <!-----------------UKR------------------------>
+                    <th th:if="${type} == 'NotHidden'"><label><input name="userFirstNameUkrForTicket" th:value="${ticket.userFirstNameUkrForTicket}" readonly></label></th>
+                    <th th:if="${type} == 'NotHidden'"><label><input name="userLastNameUkrForTicket" th:value="${ticket.userLastNameUkrForTicket}" readonly></label></th>
+                    <!-----------------UKR------------------------>
+                    <th th:if="${type} == 'NotHidden'"><label><input name="stationFromUkr" th:value="${ticket.stationFromUkr}" readonly></label></th>
+                    <th th:if="${type} == 'NotHidden'"><label><input name="stationToUkr" th:value="${ticket.stationToUkr}" readonly></label></th>
+                    <!----------------------------------------->
+
+                    <th><label><input name="trainName" th:value="${ticket.trainName}" readonly></label></th>
+                    <th><label><input name="price" th:value="${ticket.price}" readonly></label></th>
+                    <th><label><input name="date" th:value="${ticket.date}" readonly></label></th>
+                    <th><label><input name="dateArrival" th:value="${ticket.dateArrival}" readonly></label></th>
+                    <th><label><input name="timeDeparture" th:value="${ticket.timeDeparture}" readonly></label></th>
+                    <th><label><input name="timeArrival" th:value="${ticket.timeArrival}" readonly></label></th>
+
+
+                </form>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<footer class="text-white bg-dark">
+    <div id="footer" class="card-footer text-muted text-white bg-dark">© 2020 Copyright:All rights reserved</div>
+</footer>
+
+<script type="text/javascript" src="/js/language.js" ></script>
+<script type="text/javascript" src="/js/main.js"></script>
+</body>
+</html>

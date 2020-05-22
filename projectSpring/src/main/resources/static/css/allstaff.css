@@ -1,0 +1,41 @@
+
+
+.containerr {
+    max-width: 1200px;
+    padding: 0;
+    //margin-top: 110px;
+
+}
+input{
+    border: none;
+    outline: none;
+    font-weight: bold;
+    text-align: left;
+    background: none;
+}
+th{
+    margin: 0;
+    padding: 0;
+    text-align: left;
+}
+.body{
+     padding-top: 0;
+     padding-bottom: 0;
+    background-color: #eee;
+}
+
+footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    background:#F8F9FA;
+}
+
+#footer{
+    background:#F8F9FA;
+    text-align: center;
+    color: black;
+
+}

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml" >
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="/css/cities.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!--<link rel="stylesheet" type="text/css" href="/css/headerFooter.css">-->
+<head>
+    <meta charset="UTF-8">
+    <style>
+        input{
+            border: none;
+            outline: none;
+            font-weight: bold;
+            text-align: left;
+        }
+        th{
+            margin: 0;
+            padding: 0;
+            text-align: left;
+        }
+
+    </style>
+    <title>Title</title>
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand" href="/users">Navbar</a>
+
+
+
+            <form action="/users/findroute" id="buttonRoutes">
+                <button type="submit">Find another routes</button>
+            </form>
+            <form>
+                <button id="en" th:text="#{en}"></button>
+                <button id="ukr" th:text="#{ua}"></button>
+            </form>
+            <!--<form action="/users">
+                <button type="submit">Home</button>
+            </form>-->
+
+    </nav>
+
+</header>
+
+
+
+<div id="content" >
+
+
+    <table class="table">
+
+
+        <tbody>
+
+
+
+
+                <tr th:each="destination : ${page.content}" >
+                    <form method="post">
+
+
+
+                        <input type="hidden" name="idProperty" th:value="${destination.idProperty}" readonly>
+
+
+                        <td th:if="${type} == 'hidden'" th:each="des : ${destination.destinations}" >
+                            <label>
+                                <input class="city"  th:value="${des.departure}" readonly>
+                                <br>
+                                <span>Departure</span>
+                                <br>
+                                <input class="dates" th:value="${destination.dateDeparture}" readonly>
+                                <br>
+                                <input th:value="${destination.timeDeparture}" readonly>
+                            </label>
+                        </td>
+
+                        <td th:if="${type} == 'hidden'" th:each="des : ${destination.destinations}" >
+                            <label>
+                                <input class="city" th:value="${des.arrival}" readonly>
+                                <br>
+                                <span>arrival</span>
+
+                            </label>
+                        </td>
+
+                        <td th:each="des : ${destination.trains}" >
+                            <input th:value="${des.trainName}" readonly>
+
+                        </td>
+
+
+                        <td th:if="${type} == 'NotHidden'" th:each="des : ${destination.destinations}" >
+                            <label>
+                                <input class="city" th:value="${des.departureUA}" readonly>
+                                <br>
+                                <span>Departure</span>
+                                <br>
+                                <input class="dates" th:value="${destination.dateDeparture}" readonly>
+                                <br>
+                                <input th:value="${destination.timeDeparture}" readonly>
+                            </label>
+                        </td>
+
+                        <td th:if="${type} == 'NotHidden'" th:each="des : ${destination.destinations}" >
+                            <label>
+                                <input class="city" th:value="${des.arrivalUA}" readonly>
+                                <br>
+                                <span>arrival</span>
+
+                            </label>
+                        </td>
+
+
+                       <!-- <td scope="row" th:if="${type} == 'hidden'">
+                            <label>
+                                <input class="city" name="stationFrom" th:value="${destination.stationFrom}"  readonly>
+                                <br>
+                                <span>Departure</span>
+                                <br>
+                                <input class="dates" name="date" th:value="${destination.date}" readonly>
+                                <br>
+                                <input name="timeDeparture" th:value="${destination.timeDeparture}" readonly>
+                            </label>
+                        </td>
+                        <td scope="row" th:if="${type} == 'hidden'">
+                                <label>
+                                    <input class="city" name="stationTo" th:value="${destination.stationTo}" readonly>
+                                    <br>
+                                    <span>Arrival</span>
+                                    <br>
+                                    <input class="dates" name="dateArrival" th:value="${destination.dateArrival}" readonly>
+                                    <br>
+                                    <input name="timeArrival" th:value="${destination.timeArrival}" readonly>
+                                </label>
+                        </td>-->
+        <!-------------------------------------------------------->
+              <!--              <th scope="row" th:if="${type} == 'NotHidden'">
+                            <label>
+                                <input name="stationFromUkr" th:value="${destination.stationFromUkr}"   readonly>
+                                <br>
+                                <input name="date" th:value="${destination.date}" readonly>
+                                <br>
+                                <input name="timeDeparture" th:value="${destination.timeDeparture}" readonly>
+                            </label>
+                            </th>
+                            <th scope="row" th:if="${type} == 'NotHidden'">
+                                <label>
+                                    <input name="stationToUkr" th:value="${destination.stationToUkr}" readonly>
+                                    <br>
+                                    <input class="dates" name="dateArrival" th:value="${destination.dateArrival}" readonly>
+                                    <br>
+                                    <input name="timeArrival" th:value="${destination.timeArrival}" readonly>
+                                </label>
+                            </th>-->
+    <!-------------------------------------------------------->
+                          <!--  <th scope="row">
+                                <label>
+                                    <input name="trainName" th:value="${destination.trainName}" readonly>
+                                </label>
+                            </th>
+
+
+
+                            <th scope="row">
+                                <label>
+                                    <span>Price</span>
+                                    <br>
+                                    <input name="price" th:value="${destination.price}" readonly>
+                                    <span>grn</span>
+                                </label>
+                            </th>
+-->
+
+
+                            <th id="button" scope="col"><button type="submit" class="btn btn-outline-primary waves-effect"  th:text="#{choose.button}"></button></th>
+
+                    </form>
+                </tr>
+
+        </tbody>
+    </table>
+
+
+
+    <div class="pagination-div" >
+    <span th:if="${page.hasPrevious()}" th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}">
+
+        <a th:href="@{${urlBuilder.replaceQueryParam('page',__${page.number-1}__).toUriString()}}">Previous</a>
+    </span>
+        <th:block th:each="i: ${#numbers.sequence(0, page.totalPages - 1)}">
+            <span th:if="${page.number == i}" class="selected">[[${i}+1]]</span>
+            <span th:unless="${page.number == i}"  th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}">
+
+             <a th:href="@{${urlBuilder.replaceQueryParam('page',__${i}__).toUriString()}}">[[${i}+1]]</a>
+            </span>
+        </th:block>
+        <span th:if="${page.hasNext()}" th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}">
+            <a id="page" th:href="@{${urlBuilder.replaceQueryParam('page',__${page.number+1}__).toUriString()}}">Next</a>
+        </span>
+    </div>
+
+
+
+
+
+</div>
+
+
+
+<footer class="text-white bg-dark">
+    <div id="footer" class="card-footer text-muted text-white bg-dark">© 2020 Copyright:All rights reserved</div>
+</footer>
+
+
+
+
+<script type="text/javascript" src="/js/cities.js" ></script>
+<script type="text/javascript" src="/js/main.js"></script>
+<script type="text/javascript" src="/js/pagination.js"></script>
+</body>
+</html>

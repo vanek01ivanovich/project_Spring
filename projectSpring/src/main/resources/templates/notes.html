@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml" >
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="/css/cities.css">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        input{
+            border: none;
+            outline: none;
+            font-weight: bold;
+            text-align: left;
+        }
+        th{
+            margin: 0;
+            padding: 0;
+            text-align: left;
+        }
+
+    </style>
+    <title>Title</title>
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Dropdown
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                </li>
+            </ul>
+            <form>
+                <button id="en" th:text="#{en}"></button>
+                <button id="ukr" th:text="#{ua}"></button>
+            </form>
+        </div>
+    </nav>
+
+</header>
+
+
+
+<div>
+
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col" th:text="#{table.cities.from}"></th>
+            <th scope="col" th:text="#{table.cities.to}"></th>
+            <th scope="col" th:text="#{table.cities.train}"></th>
+            <th scope="col" th:text="#{date.departure}"></th>
+            <th scope="col" th:text="#{date.arrival}"></th>
+            <th scope="col" th:text="#{time.departure}"></th>
+            <th scope="col" th:text="#{time.arrival}"></th>
+            <th scope="col" th:text="#{price}"></th>
+            <th scope="col" th:text="#{table.cities.choose}"></th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:each="destination : ${cities}" >
+            <form action="/users/getroute/ticket">
+
+                <th scope="row">
+                    <label>
+                        <input name="id" th:value="${destination.id}"   readonly >
+                    </label>
+                </th>
+
+
+                <th scope="row" th:if="${type} == 'hidden'">
+                    <label>
+                        <input name="stationFrom" th:value="${destination.stationFrom}"  readonly>
+                    </label>
+                </th>
+                <th scope="row" th:if="${type} == 'hidden'">
+                    <label>
+                        <input name="stationTo" th:value="${destination.stationTo}" readonly>
+                    </label>
+                </th>
+                <!-------------------------------------------------------->
+                <th scope="row" th:if="${type} == 'NotHidden'">
+                    <label>
+                        <input name="stationFromUkr" th:value="${destination.stationFromUkr}"   readonly>
+                    </label>
+                </th>
+                <th scope="row" th:if="${type} == 'NotHidden'">
+                    <label>
+                        <input name="stationToUkr" th:value="${destination.stationToUkr}" readonly>
+                    </label>
+                </th>
+                <!-------------------------------------------------------->
+                <th scope="row">
+                    <label>
+                        <input name="trainName" th:value="${destination.trainName}" readonly>
+                    </label>
+                </th>
+
+                <th scope="row">
+                    <label>
+                        <input name="date" th:value="${destination.date}" readonly>
+                    </label>
+                </th>
+
+                <th scope="row">
+                    <label>
+                        <input name="dateArrival" th:value="${destination.dateArrival}" readonly>
+                    </label>
+                </th>
+
+                <th scope="row">
+                    <label>
+                        <input name="timeDeparture" th:value="${destination.timeDeparture}" readonly>
+                    </label>
+                </th>
+
+                <th scope="row">
+                    <label>
+                        <input name="timeArrival" th:value="${destination.timeArrival}" readonly>
+                    </label>
+                </th>
+
+                <th scope="row">
+                    <label>
+                        <input name="price" th:value="${destination.price}" readonly>
+                        <span>grn</span>
+                    </label>
+                </th>
+
+
+
+                <th scope="col"><button type="submit" th:text="#{choose.button}"></button></th>
+
+            </form>
+        </tr>
+
+        </tbody>
+    </table>
+
+</div>
+
+<footer class="text-white ">
+    <div id="footer" class="card-footer text-muted text-black">© 2020 Copyright:All rights reserved</div>
+</footer>
+
+
+<script type="text/javascript" src="/js/main.js"></script>
+</body>
+</html>

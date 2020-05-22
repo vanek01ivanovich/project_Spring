@@ -1,0 +1,59 @@
+
+body{
+    padding: 0;
+    background: url("https://revistas.unne.edu.ar/public/site/background/backgroundSite03.jpg");
+    background-size: cover;
+}
+
+.navbar{
+    top: 0;
+    width: 100%;
+}
+
+.inputForm {
+    display: inline-block;
+    padding-left: 57px;
+    padding-right: 57px;
+}
+.card-footer{
+    background: none;
+    border: 0;
+}
+
+.card{
+    outline: none;
+    border: 0;
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    /* border: 1px solid rgba(0,0,0,.125); */
+    border-radius: .25rem;
+}
+
+footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    background:#F8F9FA;
+}
+
+#footer{
+    background:#F8F9FA;
+    text-align: center;
+    color: black;
+
+}
+#mainForm{
+    margin-top: 40px;
+}
