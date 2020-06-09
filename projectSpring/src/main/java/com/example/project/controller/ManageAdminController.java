@@ -42,9 +42,10 @@ public class ManageAdminController {
     public String registration(@Valid User user, BindingResult bindingResult, Model model, RedirectAttributes redirectAttrs){
         if (bindingResult.hasErrors()) {
             userServiceImpl.getLocale(model);
+            model.addAttribute("upd",1);
             return "updateUser";
         }else if(userServiceImpl.existsUserByUserName(user.getUserName()) && !(oldName.equals(user.getUserName()))){
-
+            user.setUserName(oldName);
             redirectAttrs.addFlashAttribute("upd",0);
             redirectAttrs.addFlashAttribute("user",user);
             redirectAttrs.addFlashAttribute("oldUserName",oldName);

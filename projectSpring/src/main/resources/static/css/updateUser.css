@@ -1,0 +1,36 @@
+body{
+    padding: 0;
+    height: 90%;
+    background: url("https://revistas.unne.edu.ar/public/site/background/backgroundSite03.jpg");
+    background-size: cover;
+}
+
+.card-body{
+    max-width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+span{
+    width: 150px;
+}
+
+.container{
+    /*height: 100%;*/
+    margin-top: 114px;
+    width: 100%;
+    padding-right: 0px;
+    padding-left: 0px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+#formStyle{
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+.alert{
+    padding: 0;
+}

@@ -9,18 +9,22 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/css/guest.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
 
 </head>
 <body style="padding: 0">
 <header>
     <nav class="navbar navbar-dark bg-dark">
-        <a class="navbar-brand" href="/">Navbar</a>
-
-
-        <form>
-            <button id="en" th:text="#{en}"></button>
-            <button id="ukr" th:text="#{ua}"></button>
-        </form>
+        <a class="navbar-brand" href="/">RAILWAY</a>
+        <div class="dropdown">
+            <button th:text="#{languages}" class="lang btn btn-outline-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <button type="button" class="langMenu dropdown-item btn btn-outline-dark" id="en" th:text="#{en}"></button>
+                <button type="button" class="langMenu dropdown-item btn btn-outline-dark" id="ukr" th:text="#{ua}"></button>
+            </div>
+        </div>
     </nav>
 
 </header>
@@ -29,25 +33,26 @@
 
 <ul class="nav justify-content-center">
     <li class="nav-item">
-        <a class="nav-link active" href="/login" >Login</a>
+        <a class="nav-link active" th:text="#{login.button}" href="/login" ></a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="/registration">Sig in</a>
+        <a class="nav-link" th:text="#{sign.in.button}" href="/registration"></a>
     </li>
 </ul>
 
 <h1 class="rev-block">
-    <span>Block Reveal</span>
+    <span th:text="#{guest.hello1}"></span>
 </h1>
 <h1 class="rev-block" id="onemore">
-    <span>Block Project</span>
+    <span th:text="#{guest.hello2}"></span>
 </h1>
 
 <footer class="text-white bg-dark">
-    <div id="footer" class="card-footer text-muted text-white bg-dark">© 2020 Copyright:All rights reserved</div>
+    <div id="footer" th:text="#{footer}" class="card-footer text-muted text-white bg-dark"></div>
 </footer>
 
 </body>
+<script type="text/javascript" src="/js/language.js" ></script>
 <script>
 
 </script>

@@ -8,20 +8,36 @@
     <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/css/ticket.css">
     <link rel="stylesheet" type="text/css" href="/css/headerFooter.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
 </head>
 <body>
 <header>
     <nav class="navbar navbar-dark bg-dark">
-        <a class="navbar-brand" href="/users">Navbar</a>
-
-            <form>
-                <button id="en" th:text="#{en}"></button>
-                <button id="ukr" th:text="#{ua}"></button>
+        <a class="navbar-brand" href="/users">HOME</a>
+        <div class="navigationBar">
+            <div class="info">
+                <i style="color: white">Hi,</i>
+                <i style="color: white" th:text="${user.username}"></i>!
+                <br>
+                <p style="color: white">Your money </p>
+                <i style="color: white" th:text="${user.money}"></i>
+                <i style="color: white">&#x20AC;</i>
+            </div>
+            <form class="logout"     action="/logout">
+                <button class="btn btn-outline-warning" type="submit" th:text="#{logout.button}"></button>
             </form>
-            <!--<form action="/users">
-                <button type="submit">Home</button>
-            </form>-->
-
+            <div class="dropdown">
+                <button class="lang btn btn-outline-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Languages
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <button type="button" class="dropdown-item btn btn-outline-dark" id="en" th:text="#{en}"></button>
+                    <button type="button" class="dropdown-item btn btn-outline-dark" id="ukr" th:text="#{ua}"></button>
+                </div>
+            </div>
+        </div>
     </nav>
 
 </header>
@@ -32,112 +48,95 @@
         </div>
 
 
-
-        <div th:each="ticket : ${ticket}" >
+        <div class="card-body" th:each="ticket : ${ticket}" >
 
             <input hidden name="idProperty" th:value="${ticket.idProperty}">
-                <span>Time dep</span>
-                <i th:text="${ticket.timeDeparture}"></i>
-          <div th:each="des : ${ticket.destinations}">
-              <span>dep</span>
-              <i th:text="${des.departure}"></i>
-          </div>
 
-        </div>
-
-        <div th:each="user : ${user}" >
-
+            <!-----------------EN--------------------->
+            <div class="tic" th:if="${type} == 'hidden'" th:each="user : ${user}" >
                 <span>First name</span>
                 <i th:text="${user.firstName}"></i>
+            </div>
+
+            <div class="tic" th:if="${type} == 'hidden'" th:each="user : ${user}" >
+                <span>First name</span>
+                <i th:text="${user.lastName}"></i>
+            </div>
+
+            <div class="tic" th:if="${type} == 'hidden'" th:each="des : ${ticket.destinations}">
+                <span>Destination</span>
+                <i th:text="${des.departure}"></i>
+            </div>
+
+            <div class="tic" th:if="${type} == 'hidden'" th:each="des : ${ticket.destinations}">
+                <span>Arrival</span>
+                <i th:text="${des.arrival}"></i>
+            </div>
+
+            <div class="tic" th:if="${type} == 'hidden'" th:each="des : ${ticket.trains}">
+                <span>Train</span>
+                <i th:text="${des.trainName}"></i>
+            </div>
+
+
+            <!-----------------EN--------------------->
+
+            <!-----------------UKR--------------------->
+
+            <div class="tic" th:if="${type} == 'NotHidden'" th:each="user : ${user}" >
+                <span>First name</span>
+                <i th:text="${user.firstNameUkr}"></i>
+            </div>
+
+            <div class="tic" th:if="${type} == 'NotHidden'" th:each="user : ${user}" >
+                <span>First name</span>
+                <i th:text="${user.lastNameUkr}"></i>
+            </div>
+
+            <div class="tic" th:if="${type} == 'NotHidden'" th:each="des : ${ticket.destinations}">
+                <span>Destination</span>
+                <i th:text="${des.departureUA}"></i>
+            </div>
+
+            <div class="tic" th:if="${type} == 'NotHidden'" th:each="des : ${ticket.destinations}">
+                <span>Arrival</span>
+                <i th:text="${des.arrivalUA}"></i>
+            </div>
+
+            <div class="tic" th:if="${type} == 'NotHidden'" th:each="des : ${ticket.trains}">
+                <span>Train</span>
+                <i th:text="${des.trainNameUkr}"></i>
+            </div>
+
+            <!-----------------UKR--------------------->
+
+            <div class="tic">
+                <span>Date departure/</span>
+                <span>Time departure</span>
+                <i th:text="${ticket.dateDeparture}"></i>
+                <i th:text="${ticket.timeDeparture}"></i>
+            </div>
+            <div class="tic">
+                <span>Date arrival/</span>
+                <span>Time arrival</span>
+                <i th:text="${ticket.dateArrival}"></i>
+                <i th:text="${ticket.timeArrival}"></i>
+            </div>
+
+            <div class="tic">
+                <span>dep</span>
+                <i th:text="${ticket.price}"></i>
+            </div>
 
         </div>
 
-        <!--<div class="card-body">
-
-    &lt;!&ndash;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;
-            <div th:each="user : ${user}" th:if="${type} == 'hidden'">
-                <div class="info">
-                    <span>First name</span>
-                    <i th:text="${user.firstName}"></i>
-                </div>
-                <div class="info">
-                    <span>Last name</span>
-                    <i th:text="${user.lastName}"></i>
-                </div>
-            </div>
-
-            <div class="info" th:each="ticket : ${ticket}"  th:if="${type} == 'hidden'">
-
-                <div class="info">
-                    <span>Station From</span>
-                    <i th:text="${ticket.stationFrom}"></i>
-                </div>
-                <div class="info">
-                    <span>Station to</span>
-                    <i th:text="${ticket.stationTo}"></i>
-                </div>
-            </div>
-    &lt;!&ndash;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;
-            <div class="info" th:each="user : ${user}" th:if="${type} == 'NotHidden'">
-                <div class="info" >
-                    <span>First name</span>
-                    <i th:text="${user.firstNameUkr}"></i>
-                </div>
-                <div class="info" >
-                    <span>Last name</span>
-                    <i th:text="${user.lastNameUkr}"></i>
-                </div>
-            </div>
-
-            <div class="info" th:each="ticket : ${ticket}"  th:if="${type} == 'NotHidden'">
-
-                <div class="info" >
-                    <span>Station From</span>
-                    <i th:text="${ticket.stationFromUkr}"></i>
-                </div>
-                <div class="info" >
-                    <span>Station to</span>
-                    <i th:text="${ticket.stationToUkr}"></i>
-                </div>
-            </div>
-    &lt;!&ndash;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;
-                <div class="info">
-                    <span>Date/Time departure</span>
-                    <i class="time" th:text="${ticket.date}"></i>
-                    <i class="time">/</i>
-                    <i class="time" th:text="${ticket.timeDeparture}"></i>
-                </div>
-
-                <div class="info">
-                    <span>Date arrival</span>
-                    <i th:text="${ticket.dateArrival}"></i>
-                    /
-                    <i th:text="${ticket.timeArrival}"></i>
-                </div>
-
-                <div class="info">
-                    <span>Train name</span>
-                    <i th:text="${ticket.trainName}"></i>
-                </div>
-
-                <div class="info">
-                    <span>Price</span>
-                    <i th:text="${ticket.price}"></i>
-                </div>
-
-
-
-
-        </div>-->
-
-
-        <button id="sub" type="submit">Submit</button>
 
         <div class="card-footer text-muted">
+             <button id="sub" type="submit">Submit</button>
         </div>
 
-        </div>
-    </form>
+    </div>
+</form>
 
 
 
@@ -146,16 +145,22 @@
     <div id="footer" class="card-footer text-muted text-white bg-dark">© 2020 Copyright:All rights reserved</div>
 </footer>
 
-
+<script type="text/javascript" src="/js/language.js" ></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
-   /* $("#sub").bind("click",function () {
+    var alertt = [[${alert}]]
+    if (alertt === false){
+        swal({
+            icon:"error",
+            text:"problem"
+        });
+    }
+    if (alertt === true){
         swal({
             icon:"success",
-            text:"ticket!"
+            text:"success"
         });
-    })*/
-
+    }
 </script>
 
 </body>

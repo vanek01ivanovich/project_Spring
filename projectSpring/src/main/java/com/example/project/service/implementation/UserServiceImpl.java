@@ -4,6 +4,7 @@ import com.example.project.configSecurity.BcryptEncoder;
 import com.example.project.entity.User;
 import com.example.project.entity.enums.RoleStatus;
 import com.example.project.repository.UserRepository;
+import com.example.project.service.UserDetailsImpl;
 import com.example.project.service.serviceInterfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -44,7 +45,7 @@ public class UserServiceImpl implements UserService {
         user.setRole(RoleStatus.ROLE_USER);
         userRepository.addUser(user.getFirstName(),user.getLastName(),
                                user.getFirstNameUkr(),user.getLastNameUkr(),user.getRole().toString(),
-                               user.getPassword(),user.getUserName());
+                               user.getPassword(),user.getUserName(),"0",user.getCard());
         return true;
     }
 
@@ -63,6 +64,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUser(User user) {
         userRepository.deleteUserById(user.getId());
+    }
+
+    @Override
+    public boolean topUpMoney(UserDetailsImpl user, User userInfo) {
+        if (encoder.checkPass(userInfo.getPassword(),user.getPassword()) &&
+                Integer.toString(user.getCardNumber()).equals(userInfo.getCard())){
+            userRepository.updateUserMoney(userInfo.getMoney()+user.getMoney(),user.getUsername());
+            user.setMoney(userInfo.getMoney()+user.getMoney());
+            return true;
+        }
+        return false;
     }
 
 

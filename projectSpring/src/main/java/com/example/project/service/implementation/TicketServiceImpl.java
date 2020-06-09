@@ -1,8 +1,10 @@
 package com.example.project.service.implementation;
 
+import com.example.project.entity.DestinationProperty;
 import com.example.project.entity.Ticket;
 import com.example.project.entity.User;
 import com.example.project.repository.TicketRepository;
+import com.example.project.repository.UserRepository;
 import com.example.project.service.UserDetailsImpl;
 import com.example.project.service.mapper.UserTicketMapper;
 import com.example.project.service.serviceInterfaces.TicketService;
@@ -18,11 +20,13 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 
 @Service
 public class TicketServiceImpl implements TicketService {
 
     private TicketRepository ticketRepository;
+    private UserRepository userRepository;
     private Authentication authentication;
 
     @PersistenceContext
@@ -39,16 +43,35 @@ public class TicketServiceImpl implements TicketService {
         "join train on property.train_idtrain = train.idtrain";
 
     @Autowired
-    public TicketServiceImpl(TicketRepository ticketRepository){
+    public TicketServiceImpl(TicketRepository ticketRepository,UserRepository userRepository){
         this.ticketRepository = ticketRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
+    public boolean addTicket(DestinationProperty ticket) {
+        authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetailsImpl user  = (UserDetailsImpl) authentication.getPrincipal();
+        if (user.getMoney() < ticket.getPrice()){
+            return false;
+        }else{
+            Optional<User> admin = userRepository.findUserByUserName("admin01");
+            //admin.get().setMoney(admin.get().getMoney()+ticket.getPrice());
+            userRepository.updateUserMoney(admin.get().getMoney()+ticket.getPrice(),"admin01");
+            userRepository.updateUserMoney(user.getMoney()-ticket.getPrice(),user.getUsername());
+            ticketRepository.addApplication(user.getIdUser(),ticket.getIdProperty());
+            user.setMoney(user.getMoney()-ticket.getPrice());
+            return true;
+        }
+        //ticketRepository.addApplication(user.getIdUser(),ticket.getIdProperty());
+    }
+
+    /*@Override
     public void addTicket(Integer idTicketProperty) {
         authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetailsImpl user  = (UserDetailsImpl) authentication.getPrincipal();
         ticketRepository.addApplication(user.getIdUser(),idTicketProperty);
-    }
+    }*/
 
     @Override
     public List<User> findAllTickets() {

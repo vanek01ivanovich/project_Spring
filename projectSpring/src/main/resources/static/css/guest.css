@@ -11,6 +11,13 @@ body{
     background-size: cover;
 }
 
+.lang{
+    margin-right: 55px;
+}
+.dropdown-menu{
+    min-width: 4rem;
+}
+
 footer {
     position: absolute;
     left: 0;

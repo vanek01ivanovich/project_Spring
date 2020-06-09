@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
@@ -19,10 +20,10 @@ public interface UserRepository extends JpaRepository<User,Long> {
     @Modifying
     @Query(value = "insert into users(first_name,last_name," +
             "first_name_ukr,last_name_ukr,users.role," +
-            "users.password,user_name)"+
-            "values(?1,?2,?3,?4,?5,?6,?7)",nativeQuery = true)
+            "users.password,user_name,money,card_number)"+
+            "values(?1,?2,?3,?4,?5,?6,?7,?8,?9)",nativeQuery = true)
     void addUser(String firstName,String lastName,String firstNameUkr,
-                 String lastNameUkr,String role,String password,String userName);
+                 String lastNameUkr,String role,String password,String userName,String money,String cardNumber);
 
 
     @Modifying
@@ -37,6 +38,12 @@ public interface UserRepository extends JpaRepository<User,Long> {
                     @Param("lastNameUkr") String lastNameUkr,
                     @Param("role") String role,
                     @Param("oldUserName") String oldUserName);
+
+
+    @Modifying
+    @Query(value = "update users set users.money=:money where users.user_name=:userName",nativeQuery = true)
+    void updateUserMoney(@Param("money") int money,
+                         @Param("userName") String userName);
 
     void deleteUserById(@Param("id") Integer id);
 }

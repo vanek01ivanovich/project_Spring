@@ -40,13 +40,16 @@ public class RegistrationController {
                            RedirectAttributes redirectAttrs){
         if (bindingResult.hasErrors()) {
             model.addAttribute("redir",0);
+            model.addAttribute("alert", 1);
             return "registration";
         }else if (userServiceImpl.addUser(user)){
             redirectAttrs.addFlashAttribute("alert",1);
             return "redirect:/login";
         }else {
+          /*  model.addAttribute("user",user);*/
             redirectAttrs.addFlashAttribute("alert", 0);
-            return "redirect:/registration";
+            model.addAttribute("alert", 0);
+            return "registration";
         }
     }
 

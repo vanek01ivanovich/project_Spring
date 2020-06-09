@@ -34,14 +34,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         this.myUserDetailsService = myUserDetailsService;
         this.authenticationSuccessHandler = authenticationSuccessHandler;
     }
-/*
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        //auth.userDetailsService(myUserDetailsService);
-        System.out.println("1");
-        auth.userDetailsService(myUserDetailsService).passwordEncoder(passwordEncoder());
 
-    }*/
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -54,22 +47,16 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/admin").hasRole("ADMIN")
-                .antMatchers("/users").hasAnyRole("ADMIN","USER")
-                .antMatchers("/").permitAll()
+                .antMatchers("/users").hasRole("USER")
+                .antMatchers("/users/*").hasRole("USER")
+                .antMatchers("/admin/*").hasRole("ADMIN")
+                .antMatchers("/").hasRole("ANONYMOUS")
+                .antMatchers("/login").hasRole("ANONYMOUS")
+                .antMatchers("/registration").hasRole("ANONYMOUS")
                 .and()
                 .formLogin().loginPage("/login").successHandler(authenticationSuccessHandler)
                 .and()
                 .csrf().disable();
-
-
-/* .authorizeRequests()
-                .antMatchers("/admin").hasRole("ADMIN")
-                .antMatchers("/users").hasAnyRole("ADMIN","USER")
-                .antMatchers("/").permitAll()
-                .and()
-                .formLogin().loginPage("/login").successHandler(authenticationSuccessHandler)
-                .and()
-                .csrf().disable();*/
 
 
     }
@@ -78,8 +65,4 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    /*@Bean
-    public PasswordEncoder passwordEncoder(){
-        return NoOpPasswordEncoder.getInstance();
-    }*/
 }

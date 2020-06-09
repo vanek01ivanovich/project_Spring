@@ -27,6 +27,15 @@ public class UserDetailsImpl implements UserDetails {
     public String getFirstName(){
         return user.getFirstName();
     }
+    public String getLastName(){
+        return user.getLastName();
+    }
+    public String getLastNameUkr(){
+        return user.getLastNameUkr();
+    }
+    public String getFirstNameUkr(){
+        return user.getFirstNameUkr();
+    }
 
     @Override
     public String getPassword() {
@@ -61,6 +70,16 @@ public class UserDetailsImpl implements UserDetails {
     public int getIdUser(){
         return user.getId();
     }
+
+    public int getMoney(){return user.getMoney();}
+
+    public int getCardNumber(){return user.getCardNumber();}
+
+    public String getCard(){return user.getCard();}
+
+    public void setMoney(int money){ user.setMoney(money);}
+
+    public String getRole(){ return user.getRole().toString();}
 
 
 

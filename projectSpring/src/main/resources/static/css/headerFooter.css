@@ -1,8 +1,23 @@
-
 body{
     padding: 0 !important;
    /* background: url("https://s1.1zoom.ru/b5050/512/_508607_2048x1152.jpg");
     background-size: cover;*/
+}
+
+.lang{
+    margin-right: 40px;
+}
+
+.navigationBar{
+    display: inherit;
+}
+
+.logout{
+    margin-right: 33px;
+}
+
+.dropdown-menu{
+    min-width: 4rem;
 }
 
 footer {

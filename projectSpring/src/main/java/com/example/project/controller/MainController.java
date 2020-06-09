@@ -2,6 +2,9 @@ package com.example.project.controller;
 
 
 import com.example.project.entity.User;
+import com.example.project.service.UserDetailsImpl;
+import com.example.project.service.implementation.UserServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -10,25 +13,57 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.security.Principal;
 
 @Controller
 public class MainController {
 
+    @Autowired
+    public UserServiceImpl userServiceImpl;
+
     @GetMapping("/")
-    public String mainPage(){
+    public String mainPage(Principal principal){
+
         return "guestPage";
     }
 
-    @GetMapping("/users")
+
+
+
+    @RequestMapping(value = "/users",method = RequestMethod.GET)
     public String users(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetailsImpl user = (UserDetailsImpl) authentication.getPrincipal();
+
+        userServiceImpl.getLocale(model);
+        model.addAttribute("user",user);
         return "user";
     }
 
+    @RequestMapping(value = "/users",method = RequestMethod.POST)
+    public String users(@Valid User userInfo,BindingResult bindingResult,Model model,RedirectAttributes redirectAttrs){
+        if (bindingResult.hasErrors()) {
+            redirectAttrs.addFlashAttribute("alert",false);
+        }else{
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            UserDetailsImpl user = (UserDetailsImpl) authentication.getPrincipal();
+            redirectAttrs.addFlashAttribute("alert",userServiceImpl.topUpMoney(user,userInfo));
+        }
+        userServiceImpl.getLocale(model);
+        return "redirect:/users";
+    }
+
+
+
     @GetMapping("/admin")
     public String admin(Model model) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetailsImpl user = (UserDetailsImpl) authentication.getPrincipal();
+        userServiceImpl.getLocale(model);
+        model.addAttribute("user",user);
+
         return "admin";
     }
 
@@ -49,14 +84,8 @@ public class MainController {
         return "login";
     }
 
-    @RequestMapping(value = "/logoutt",method = RequestMethod.GET)
-    public String logoutPage(HttpServletRequest request, HttpServletResponse response, Model model, RedirectAttributes redirectAttributes){
-       /* Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        UsersDetails user = (UsersDetails) auth.getPrincipal();
-
-        redirectAttributes.addFlashAttribute("username",user.getUsername());
-*/
-
+    @RequestMapping(value = "/logout",method = RequestMethod.GET)
+    public String logoutPage(){
         return "redirect:/login?logout";
     }
 

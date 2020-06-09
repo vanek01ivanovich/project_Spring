@@ -1,91 +1,132 @@
-<html lang="en" xmlns:form="http://www.w3.org/1999/html"  xmlns:th="http://www.thymeleaf.org">
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="/css/findroute.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <!--  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  -->  <link rel="stylesheet" type="text/css" href="/css/findroute.css">
+     <link rel="stylesheet" type="text/css" href="/css/headerFooter.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
 
 </head>
 <body>
 <header>
     <nav class="navbar navbar-dark bg-dark">
-        <a class="navbar-brand" href="/users">Navbar</a>
-
-
-
-            <form>
-                <button id="en" th:text="#{en}"></button>
-                <button id="ukr" th:text="#{ua}"></button>
+        <a class="navbar-brand" href="/users">HOME</a>
+        <div class="navigationBar">
+            <div class="info">
+                <i style="color: white">Hi,</i>
+                <i style="color: white" th:text="${user.username}"></i>!
+                <br>
+                <i style="color: white">Your money </i>
+                <i style="color: white" th:text="${user.money}"></i>
+                <i style="color: white">&#x20AC;</i>
+            </div>
+            <form class="logout" action="/logout">
+                <button  class="btn btn-outline-warning" type="submit" th:text="#{logout.button}"></button>
             </form>
-           <!-- <form action="/users">
-                <button type="submit">Home</button>
-            </form>
-      -->
+            <div class="dropdown">
+                <button class="lang btn btn-outline-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Languages
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <button type="button" class="dropdown-item btn btn-outline-dark" id="en" th:text="#{en}"></button>
+                    <button type="button" class="dropdown-item btn btn-outline-dark" id="ukr" th:text="#{ua}"></button>
+                </div>
+            </div>
+        </div>
+       <!-- <div class="dropdown">
+            <button class="lang btn btn-outline-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Languages
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <button type="button" class="dropdown-item btn btn-outline-dark" id="en" th:text="#{en}"></button>
+                <button type="button" class="dropdown-item btn btn-outline-dark" id="ukr" th:text="#{ua}"></button>
+            </div>
+        </div>
+-->
+
+        <!-- <form action="/users">
+             <button type="submit">Home</button>
+         </form>
+   -->
     </nav>
 
 </header>
-<div class="container">
-<div class="card-header">
-    Choose Route
-</div>
-<div class="card text-center">
-    <div class="card-body">
-        <div th:if="${notFound}">
-            <div class="alert alert-info" role="alert" th:text="#{route.not.found}"></div>
+
+<div class="container card text-center">
+    <div class="row">
+        <div class="col-sm ">
+            <div th:if="${notFound}">
+                <div class="alert alert-info" role="alert" th:text="#{route.not.found}"></div>
+            </div>
+            <form modelAttribute="findRoutesForm" method="post" id="mainForm">
+
+                <div class="form-row">
+                    <!--class="inputForm"-->
+                    <div th:if="${type} == 'hidden'" class="col" >
+                        <h3 th:text="#{find.route.from}"></h3>
+                            <label>
+                                <input  type="text" name="stationFrom" class="form-control" required >
+                            </label>
+
+                    </div>
+
+                    <div th:if="${type} == 'hidden'" class="col">
+                            <h3 th:text="#{find.route.to}"></h3>
+                            <label>
+                                <input type="text" name="stationTo" class="form-control" required>
+                            </label>
+                    </div>
+
+                    <div th:if="${type} == 'NotHidden'" class="col">
+
+                            <h3 th:text="#{find.route.from}"></h3>
+                            <label >
+                                <input type="text" name="stationFromUkr" class="form-control" required>
+                            </label>
+
+                    </div>
+                    <div th:if="${type} == 'NotHidden'" class="col">
+
+                            <h3 th:text="#{find.route.to}"></h3>
+                            <label>
+                                <input type="text" name="stationToUkr" class="form-control" required>
+                            </label>
+
+                    </div>
+
+                </div>
+
+                <div class="form-row">
+                    <div class="col">
+                        <h3 th:text="#{find.route.date}"></h3>
+                        <input name="date" type="date" class="form-control" placeholder="Date" id="date">
+                    </div>
+                </div>
+
+                <!--<div>
+                    <span th:text="#{find.route.date}"></span>
+                </div>-->
+              <!--  <label>
+                    <input type="date" name="date">
+                </label>-->
+
+
+                    <button type="submit"  class="btn btn-primary btn-lg btn-block" th:text="#{find.route}"></button>
+
+            </form>
         </div>
-        <form modelAttribute="findRoutesForm" method="post" id="mainForm">
-
-
-            <div th:if="${type} == 'hidden'" class="inputForm">
-                <div>
-                    <span th:text="#{find.route.from}"></span>
-                </div>
-                <label>
-                    <input  type="text" name="stationFrom" required >
-                </label>
-            </div>
-
-            <div th:if="${type} == 'hidden'" class="inputForm">
-                <div>
-                    <span th:text="#{find.route.to}"></span>
-                </div>
-                <label>
-                    <input type="text" name="stationTo" required>
-                </label>
-            </div>
-
-            <div th:if="${type} == 'NotHidden'" class="inputForm">
-                <div>
-                    <span th:text="#{find.route.from}"></span>
-                </div>
-                <label >
-                    <input type="text" name="stationFromUkr" required>
-                </label>
-            </div>
-            <div th:if="${type} == 'NotHidden'" class="inputForm">
-                <div>
-                    <span th:text="#{find.route.to}"></span>
-                </div>
-                <label>
-                    <input type="text" name="stationToUkr" required>
-                </label>
-            </div>
-
-            <div>
-                <span th:text="#{find.route.date}"></span>
-            </div>
-            <label>
-                <input type="date" name="date">
-            </label>
-
-            <div class="card-footer text-muted">
-                <button type="submit" th:text="#{find.route}"></button>
-            </div>
-        </form>
     </div>
 </div>
-</div>
+
 
 
 <footer class="text-white bg-dark">
@@ -95,6 +136,15 @@
 <script type="text/javascript" src="/js/language.js" ></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>>
 <script>
+    var alerttt = [[${alert}]]
+
+    if (alerttt === true){
+        swal({
+            icon:"success",
+            text:"success"
+        });
+    }
+
     var alertt = [[${alertTicket}]]
     if(alertt === 1){
         swal({

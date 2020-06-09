@@ -14,11 +14,15 @@
 <header>
     <nav class="navbar navbar-dark bg-dark">
         <a class="navbar-brand" href="/users">Navbar</a>
-            <form>
-            <button id="en" th:text="#{en}"></button>
-            <button id="ukr" th:text="#{ua}"></button>
-        </form>
-
+        <div class="dropdown">
+            <button class="btn btn-outline-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Languages
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <button type="button" class="lang dropdown-item btn btn-outline-dark" id="en" th:text="#{en}"></button>
+                <button type="button" class="lang dropdown-item btn btn-outline-dark" id="ukr" th:text="#{ua}"></button>
+            </div>
+        </div>
     </nav>
 
 </header>

@@ -1,8 +1,31 @@
+body{
+    padding: 0;
+    height: 90%;
+    background: url("https://revistas.unne.edu.ar/public/site/background/backgroundSite03.jpg");
+    background-size: cover;
+}
+
+
+.info{
+    margin-right: 20px;
+}
+
 .container {
     max-width: 500px;
     padding: 0;
     margin-top: 110px;
 
+}
+.tic{
+    display: flow-root !important;
+}
+
+span{
+    float: left;
+}
+
+i{
+    float: right;
 }
 /*body{
     padding: 0;

@@ -24,7 +24,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = {"/users","/admin"})
+@RequestMapping(value = "/users")
 public class FindRoutesController {
 
     private static List<DestinationProperty> routes;
@@ -45,6 +45,11 @@ public class FindRoutesController {
 
     @RequestMapping(value = "/findroute", method = RequestMethod.GET)
     public ModelAndView findRoutes(Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetailsImpl user = (UserDetailsImpl) authentication.getPrincipal();
+        model.addAttribute("user",user);
+
+
         userServiceImpl.getLocale(model);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("findRoutesForm",new Application());
@@ -59,6 +64,7 @@ public class FindRoutesController {
         //applicationServiceImpl.addApplication(application);
         userServiceImpl.getLocale(model);
         routes = destinationsPropertyService.findAllDestinationsByApplication(application);
+        System.out.println(routes);
         ModelAndView modelAndView = new ModelAndView();
         if (routes != null){
             pages = new PageImpl<>(routes.subList(0, pageable.getPageSize()), pageable, routes.size());
@@ -78,6 +84,9 @@ public class FindRoutesController {
     public ModelAndView getRoutes(@RequestParam(name = "page",required = false) String page,
                                   @PageableDefault(size = 3) Pageable pageable,
                                   ModelAndView modelAndView,Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetailsImpl user = (UserDetailsImpl) authentication.getPrincipal();
+        model.addAttribute("user",user);
         userServiceImpl.getLocale(model);
         if (page != null){
             int start = pageable.getPageSize()*Integer.parseInt(page);
@@ -94,9 +103,11 @@ public class FindRoutesController {
     }
 
     @RequestMapping(value = "/getroute",method = RequestMethod.POST)
-    public ModelAndView getRoutes(@RequestParam(name = "idProperty") String idProperty,RedirectAttributes redirectAttributes){
+    public ModelAndView getRoutes(@RequestParam(name = "idProperty") String idProperty,RedirectAttributes redirectAttributes,Model model){
         DestinationProperty ticket = getDestinationForTicket(Integer.parseInt(idProperty));
-
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetailsImpl user = (UserDetailsImpl) authentication.getPrincipal();
+        model.addAttribute("user",user);
         redirectAttributes.addFlashAttribute("ticket",ticket);
         return new ModelAndView("redirect:/users/getroute/ticket");
     }

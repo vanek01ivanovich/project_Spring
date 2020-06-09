@@ -1,6 +1,27 @@
 body{
     padding: 0;
-    height: 100%;
+    height: 90%;
+    background: url("https://revistas.unne.edu.ar/public/site/background/backgroundSite03.jpg");
+    background-size: cover;
+}
+
+.info{
+    margin-right: 20px;
+}
+input{
+    border: none;
+    outline: none;
+    font-weight: bold;
+    text-align: left;
+    background: inherit;
+}
+th{
+    margin: 0;
+    padding: 0;
+    text-align: left;
+}
+.page-link{
+    display: inline-block;
 }
 
 html{
@@ -45,6 +66,9 @@ span{
     justify-content: space-between;
     text-align: -webkit-center;
 }
+tr{
+    background: lightyellow;
+}
 #content{
     margin-top: 40px;
     min-height: 100%;
@@ -53,6 +77,9 @@ span{
     width: 0;
     max-width: 100%;
     margin-bottom: 1rem;
+}
+.table td{
+    border-top: none;
 }
 table{
 
@@ -65,13 +92,7 @@ table{
    /* width: 1000px;*/
     border-spacing: 2px 5px;
 }
-tr{
-    /*border: 4px double ;
-    border-collapse: collapse;
-    border-spacing: 7px;*/
 
-   /* border: 19px solid #795548;*/
-}
 
 footer {
     //position: relative;

@@ -1,12 +1,10 @@
 $(document).ready(function () {
     var currentUrl = window.location.href;
     var lastSymbol = currentUrl.slice(-1);
-
-    console.log(currentUrl);
     $('#en').click(function () {
-        var urlLang = "?lang=en";
-        if(lastSymbol === "?"){
-            urlLang = "lang=en"
+        var urlLang = '?lang=en';
+        if(lastSymbol === '?'){
+            urlLang = 'lang=en';
         }
         $.ajax({
             method : 'GET',
@@ -21,9 +19,9 @@ $(document).ready(function () {
     });
 
     $('#ukr').click(function () {
-        var urlLang = "?lang=ukr";
+        var urlLang = '?lang=ukr';
         if(lastSymbol === "?"){
-            urlLang = "lang=ukr"
+            urlLang = 'lang=ukr';
         }
         $.ajax({
             method : 'GET',

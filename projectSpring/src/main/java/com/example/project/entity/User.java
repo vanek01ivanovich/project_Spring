@@ -48,6 +48,17 @@ public class User {
     @Column(name = "last_name_ukr")
     private String lastNameUkr;
 
+    @Column(name = "money")
+    private int money;
+
+
+    @Column(name = "card_number")
+    private int cardNumber;
+
+    @Pattern(regexp = "[0-9]{8}")
+    @Transient
+    private String card;
+
     @Enumerated(EnumType.STRING)
     private RoleStatus role;
 
