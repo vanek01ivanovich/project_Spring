@@ -24,13 +24,16 @@ public class ApplicationServiceImpl implements ApplicationService {
         this.applicationRepository = applicationRepository;
     }
 
+    /**
+     * Method that adds application to db
+     * Method can difference eng and ukr applications
+     * @param application needed for adding application
+     */
     @Override
     public void addApplication(Application application) {
         Locale locale = LocaleContextHolder.getLocale();
         authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetailsImpl user  = (UserDetailsImpl) authentication.getPrincipal();
-        System.out.println("USER id = " + user.getIdUser());
-        System.out.println("App = " + application.toString());
         if (locale == Locale.ENGLISH){
             applicationRepository.addApplication(user.getIdUser(),
                                                  application.getStationFrom(),

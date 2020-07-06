@@ -27,9 +27,4 @@ public class Ticket {
     @Column(name = "property_idproperty")
     private Integer idProperty;
 
-
-
-
-
-
 }

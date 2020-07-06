@@ -12,7 +12,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 
-    <title>Title</title>
+    <title th:text="#{title.registration}"></title>
     <link rel="stylesheet" type="text/css" href="/css/headerFooter.css">
     <link rel="stylesheet" type="text/css" href="/css/updateUser.css">
 </head>
@@ -30,7 +30,7 @@
     </nav>
 
 </header>
-<div class="container card text-center">
+<div class="reg container card text-center">
     <div th:text="#{sign.in.button}" class="card-header"></div>
     <div class="row">
         <div class="col-sm ">
@@ -39,7 +39,7 @@
 
                     <div class="input-group mb-3 form-group" th:classappend="${#fields.hasErrors('userName')} ? 'input-icon right' : ''">
                             <span th:text="#{admin.allusers.username}" class="input-group-text"></span>
-                            <input type="text" name="userName" th:field="*{userName}" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="Enter user name" required>
+                            <input type="text" name="userName" th:field="*{userName}" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" th:placeholder="#{registration.user.name}" required>
                     </div>
                     <div th:if="${#fields.hasErrors('userName')}" class="alert alert-danger" role="alert">
                         <i th:text="#{regex.userName.error}"></i>
@@ -47,7 +47,7 @@
 
                     <div class="input-group mb-3 form-group">
                         <span th:text="#{admin.allusers.first.name}" class="input-group-text"></span>
-                        <input th:value="${user.firstName}" type="text" name="firstName" th:field="*{firstName}" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="Enter first name" required>
+                        <input th:value="${user.firstName}" type="text" name="firstName" th:field="*{firstName}" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" th:placeholder="#{registration.first.name}" required>
                     </div>
                     <div th:if="${#fields.hasErrors('firstName')}" class="alert alert-danger" role="alert">
                         <i th:text="#{regex.firstName.error}"></i>
@@ -55,7 +55,7 @@
 
                     <div class="input-group mb-3 form-group">
                         <span th:text="#{admin.allusers.first.name.native}" class="input-group-text"></span>
-                        <input type="text" name="firstNameUkr" th:field="*{firstNameUkr}" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"   placeholder="Введіть ваше ім'я" required>
+                        <input type="text" name="firstNameUkr" th:field="*{firstNameUkr}" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"   th:placeholder="#{registration.first.name.ukr}" required>
                     </div>
                     <div th:if="${#fields.hasErrors('firstNameUkr')}" class="alert alert-danger" role="alert">
                         <i th:text="#{regex.firstNameUkr.error}"></i>
@@ -64,7 +64,7 @@
 
                     <div class="input-group mb-3 form-group">
                         <span th:text="#{admin.allusers.last.name}" class="input-group-text"></span>
-                        <input type="text" name="lastName" th:field="*{lastName}" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="Enter last name" required>
+                        <input type="text" name="lastName" th:field="*{lastName}" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" th:placeholder="#{registration.last.name}" required>
                     </div>
                     <div th:if="${#fields.hasErrors('lastName')}" class="alert alert-danger" role="alert">
                         <i th:text="#{regex.lastName.error}"></i>
@@ -72,7 +72,7 @@
 
                     <div class="input-group mb-3 form-group">
                         <span th:text="#{admin.allusers.last.name.native}" class="input-group-text"></span>
-                        <input type="text" name="lastNameUkr" th:field="*{lastNameUkr}" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="Введіть ваше прізвище" required>
+                        <input type="text" name="lastNameUkr" th:field="*{lastNameUkr}" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" th:placeholder="#{registration.last.name.ukr}" required>
                     </div>
                     <div th:if="${#fields.hasErrors('lastNameUkr')}" class="alert alert-danger" role="alert">
                         <i th:text="#{regex.lastNameUkr.error}"></i>
@@ -80,7 +80,7 @@
 
                     <div class="input-group mb-3 form-group">
                         <span th:text="#{card}" class="input-group-text"></span>
-                        <input type="number" name="card" th:field="*{card}" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="карта" required>
+                        <input type="number" name="card" th:field="*{card}" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" th:placeholder="#{registration.card.number}" required>
                     </div>
                     <div th:if="${#fields.hasErrors('card')}" class="alert alert-danger" role="alert">
                         <i th:text="#{regex.cardNumber.error}"></i>
@@ -89,7 +89,7 @@
 
                     <div class="input-group mb-3 form-group">
                         <span th:text="#{password}" class="input-group-text"></span>
-                        <input type="password" name="password"  class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"   placeholder="Enter password" required>
+                        <input type="password" name="password"  class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"   th:placeholder="#{registration.password}" required>
                     </div>
 
 
@@ -107,18 +107,18 @@
 
 <script type="text/javascript" src="/js/language.js" ></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script>
+<script th:inline="javascript">
     var alertt = [[${alert}]]
     if (alertt === 0){
         swal({
             icon:"error",
-            text:"exist"
+            text:[[#{user.exist}]]
         });
     }
     if (alertt === 1){
         swal({
             icon:"error",
-            text:"regex"
+            text:[[#{user.regex}]]
         });
     }
 </script>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous">
-    <title>Title</title>
+    <title th:text="#{title.admin}"></title>
 
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -24,10 +24,10 @@
         <!-- <h2 modelattribute="userrole" th:text="${userrole}"></h2>-->
         <div class="navigationBar">
             <div class="info">
-                <i style="color: white">Hi,</i>
+                <i style="color: white" th:text="#{hi}"></i>
                 <i style="color: white" th:text="${user.username}"></i>!
                 <br>
-                <i style="color: white">Your money </i>
+                <i style="color: white" th:text="#{money}"></i>
                 <i style="color: white" th:text="${user.money}"></i>
                 <i style="color: white">&#x20AC;</i>
             </div>
@@ -36,9 +36,7 @@
             </form>
 
             <div class="dropdown">
-                <button class="lang btn btn-outline-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Languages
-                </button>
+                <button th:text="#{languages}" class="lang btn btn-outline-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <button type="button" class="dropdown-item btn btn-outline-dark" id="en" th:text="#{en}"></button>
                     <button type="button" class="dropdown-item btn btn-outline-dark" id="ukr" th:text="#{ua}"></button>

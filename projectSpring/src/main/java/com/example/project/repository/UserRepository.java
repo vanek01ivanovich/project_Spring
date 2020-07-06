@@ -14,8 +14,10 @@ import java.util.Optional;
 @Repository
 @Transactional
 public interface UserRepository extends JpaRepository<User,Long> {
+
     Optional<User> findUserByUserName(String userName);
     boolean existsUserByUserName(String userName);
+    boolean existsUserByCardNumber(int cardNumber);
 
     @Modifying
     @Query(value = "insert into users(first_name,last_name," +
@@ -24,7 +26,6 @@ public interface UserRepository extends JpaRepository<User,Long> {
             "values(?1,?2,?3,?4,?5,?6,?7,?8,?9)",nativeQuery = true)
     void addUser(String firstName,String lastName,String firstNameUkr,
                  String lastNameUkr,String role,String password,String userName,String money,String cardNumber);
-
 
     @Modifying
     @Query(value = "update users set users.user_name=:userName," +
@@ -38,7 +39,6 @@ public interface UserRepository extends JpaRepository<User,Long> {
                     @Param("lastNameUkr") String lastNameUkr,
                     @Param("role") String role,
                     @Param("oldUserName") String oldUserName);
-
 
     @Modifying
     @Query(value = "update users set users.money=:money where users.user_name=:userName",nativeQuery = true)

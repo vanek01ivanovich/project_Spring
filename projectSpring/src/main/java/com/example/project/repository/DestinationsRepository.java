@@ -9,6 +9,4 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 public interface DestinationsRepository extends JpaRepository<DestinationProperty,Long> {
 
-
-
 }

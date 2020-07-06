@@ -1,3 +1,33 @@
+$(document).ready(function () {
+
+    $('#en').click(function () {
+
+        $.ajax({
+            method : 'GET',
+            url : "/admin/allusers?lang=en",
+            success : [
+                function () {
+                    window.location.reload();
+                }
+            ]
+        })
+    });
+
+    $('#ukr').click(function () {
+
+        $.ajax({
+            method : 'GET',
+            url : "/admin/allusers?lang=ukr",
+            success : [
+                function () {
+                    window.location.reload();
+                }
+            ]
+        })
+
+    })
+});
+
 /*
 $(document).ready(function () {
     $('#update').click(function () {

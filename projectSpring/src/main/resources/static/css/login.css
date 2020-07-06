@@ -10,7 +10,9 @@
 }
 body{
     padding: 0;
-    background: url("https://s1.1zoom.ru/b5050/512/_508607_2048x1152.jpg");
+    width: 100%;
+    height: 100vh;
+    background: url("https://mcdn.wallpapersafari.com/medium/11/86/vhCQsY.jpg");
     background-size: cover;
 }
 

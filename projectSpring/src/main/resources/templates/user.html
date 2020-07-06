@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title th:text="#{title.user.page}"></title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous">
@@ -19,17 +19,12 @@
     <nav class="navbar navbar-dark bg-dark">
         <a class="navbar-brand" href="/users">HOME</a>
 
-
-           <!-- <h2 th:text="${user.username}" style="color: white"></h2>
-            <h2 th:text="${user.money}"></h2>-->
-
-
         <div class="navigationBar">
             <div class="info">
-                <i style="color: white">Hi,</i>
+                <i style="color: white" th:text="#{hi}"></i>
                 <i style="color: white" th:text="${user.username}"></i>!
                 <br>
-                <i style="color: white">Your money </i>
+                <i style="color: white" th:text="#{money}"></i>
                 <i style="color: white" th:text="${user.money}"></i>
                 <i style="color: white">&#x20AC;</i>
             </div>
@@ -38,8 +33,7 @@
             </form>
 
             <div class="dropdown">
-                <button class="lang btn btn-outline-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Languages
+                <button th:text="#{languages}" class="lang btn btn-outline-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <button type="button" class="dropdown-item btn btn-outline-dark" id="en" th:text="#{en}"></button>
@@ -52,53 +46,56 @@
 
 </header>
 
-    <form action="/users/findroute">
+<div class="cont">
+    <form class="buttonFind" action="/users/findroute">
         <button type="submit" class="btn btn-warning" th:text="#{find.route}"></button>
     </form>
 
     <form th:object="${user}"  method="post">
-        <div  class="card" style="width: 18rem;">
-            <div>
-                Top Up Money
+        <div class="card"  style="width: 18rem;">
+            <div th:text="#{top.up.money}"  class="cardHead">
             </div>
             <div class="card-body">
                 <div class="form-group">
                     <label>
+                        <p th:text="#{card}"></p>
                         <i th:if="${#fields.hasErrors('card')}" class="fa fa-exclamation tooltips" data-original-title="please enter a valid user name" data-container="body"></i>
                         <input type="number" name="card" th:field="*{card}" class="form-control" placeholder="карта" required>
                         <span th:if="${#fields.hasErrors('card')}" class="help-block" th:errors="*{card}"></span>
                     </label>
                 </div>
                 <div class="form-group">
-                    <label for="amountMoney">Amount</label>
+                    <label for="amountMoney" th:text="#{amount}"></label>
                     <input required type="number" name="money"  id="amountMoney" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="Enter your amount">
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Password</label>
+                    <label for="exampleInputPassword1" th:text="#{password}"></label>
                     <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
                 </div>
-                <button type="submit" class="btn btn-primary">TOP-UP</button>
+                <button type="submit" class="btn btn-primary" th:text="#{submit.sig.in.button}"></button>
             </div>
         </div>
     </form>
+
+</div>
 
 <footer class="text-white bg-dark">
     <div id="footer" class="card-footer text-muted text-white bg-dark">© 2020 Copyright:All rights reserved</div>
 </footer>
 
 <script type="text/javascript" src="/js/language.js" ></script>
-<script>
+<script th:inline="javascript">
     var alertt = [[${alert}]]
     if (alertt === false){
         swal({
             icon:"error",
-            text:"problem"
+            text:[[#{problem.top.up}]]
         });
     }
     if (alertt === true){
         swal({
             icon:"success",
-            text:"success"
+            text:[[#{success.top.up}]]
         });
     }
 </script>

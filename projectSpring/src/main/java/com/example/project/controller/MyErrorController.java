@@ -1,5 +1,6 @@
 package com.example.project.controller;
 
+import org.apache.log4j.Logger;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -13,19 +14,27 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class MyErrorController implements ErrorController {
+
+    private static final Logger log = Logger.getLogger(MyErrorController.class);
+
     @Override
     public String getErrorPath() {
         return "/error";
     }
 
+    /**
+     * Error method if user input wrong url
+     * @param request needed for getting current request
+     * @return page like a string
+     */
     @RequestMapping(value = "/error")
     public String errorPage(HttpServletRequest request){
-        System.out.println(request.isUserInRole("ROLE_USER"));
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
         if ((Integer.parseInt(status.toString()) == HttpStatus.FORBIDDEN.value()) && request.isUserInRole("ROLE_USER")){
+            log.error("IT`S FORBIDDEN TO REDIRECT TO ADMIN PAGE");
             return "redirect:/users";
         }else if ((Integer.parseInt(status.toString()) == HttpStatus.FORBIDDEN.value())  && request.isUserInRole("ROLE_ADMIN")){
+            log.error("IT`S FORBIDDEN TO REDIRECT TO USER PAGE");
             return "redirect:/admin";
         }
         return "error";

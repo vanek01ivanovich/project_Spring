@@ -8,7 +8,6 @@ import com.example.project.entity.User;
 import java.util.List;
 
 public interface TicketService {
-    //void addTicket(Integer idTicketProperty);
     boolean addTicket(DestinationProperty ticket);
     List<User> findAllTickets();
 }

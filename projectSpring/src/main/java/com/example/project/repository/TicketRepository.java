@@ -15,12 +15,9 @@ import java.util.List;
 @Transactional
 public interface TicketRepository extends JpaRepository<Ticket,Long> {
 
-
     @Modifying
     @Query(value = "INSERT INTO ticket(users_idusers,property_idproperty)" +
             "VALUES(?1,?2)",nativeQuery = true)
     void addApplication(Integer idUser,Integer idProperty);
-
-
 
 }

@@ -27,6 +27,9 @@ th{
      padding-bottom: 0;
     background-color: #eee;
 }
+.page-link{
+    display: inline-block;
+}
 
 footer {
     position: absolute;

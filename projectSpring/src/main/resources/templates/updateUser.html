@@ -2,16 +2,21 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" >
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title th:text="#{title.update.user}"></title>
+
     <link rel="stylesheet" type="text/css" href="/css/headerFooter.css">
     <link rel="stylesheet" type="text/css" href="/css/updateUser.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous">
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 </head>
 <body>
@@ -21,11 +26,10 @@
         <a class="navbar-brand" href="/admin">HOME</a>
         <div class="navigationBar">
             <form action="/logout">
-                <button type="submit" th:text="#{logout.button}"></button>
+                <button class="btn btn-outline-warning" type="submit" th:text="#{logout.button}"></button>
             </form>
             <div class="dropdown">
-                <button class="lang btn btn-outline-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Languages
+                <button th:text="#{languages}" class="lang btn btn-outline-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <button type="button" class="dropdown-item btn btn-outline-dark" id="en" th:text="#{en}"></button>
@@ -40,16 +44,15 @@
 <form  th:object="${user}" method="post">
     <div class="container card text-center">
         <div class="card-header">
-            <h5>Edit user</h5>
+            <h5 th:text="#{title.update.user}"></h5>
         </div>
         <div class="row">
             <div class="col-sm ">
                 <div class="card-body">
+
                     <div class="input-group mb-3 form-group" th:classappend="${#fields.hasErrors('userName')} ? 'input-icon right' : ''">
-                        <div class="input-group-prepend">
-                           <span class="input-group-text">User Name</span>
-                            <input required type="text" name="userName" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" th:field="*{userName}">
-                        </div>
+                       <span class="input-group-text" th:text="#{admin.allusers.username}"></span>
+                        <input required type="text" name="userName" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" th:field="*{userName}">
                     </div>
                     <div th:if="${#fields.hasErrors('userName')}" class="alert alert-danger" role="alert">
                         <i th:text="#{regex.userName.error}"></i>
@@ -57,20 +60,16 @@
 
                     <!-------------------------------->
                     <div class="input-group mb-3 form-group" th:classappend="${#fields.hasErrors('firstName')} ? 'input-icon right' : ''">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">First Name</span>
+                            <span class="input-group-text" th:text="#{admin.allusers.first.name}"></span>
                             <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="firstName" th:field="*{firstName}">
-                        </div>
                     </div>
                     <div th:if="${#fields.hasErrors('firstName')}" class="alert alert-danger" role="alert">
                         <i th:text="#{regex.firstName.error}"></i>
                     </div>
 
                     <div class="input-group mb-3 form-group" th:classappend="${#fields.hasErrors('lastName')} ? 'input-icon right' : ''">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Last Name</span>
+                            <span class="input-group-text" th:text="#{admin.allusers.last.name}"></span>
                             <input type="text"  class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="lastName" th:field="*{lastName}" >
-                        </div>
                     </div>
                     <div th:if="${#fields.hasErrors('lastName')}" class="alert alert-danger" role="alert">
                         <i th:text="#{regex.lastName.error}"></i>
@@ -79,10 +78,8 @@
                     <!-------------------------------->
 
                     <div class="input-group mb-3 form-group" th:classappend="${#fields.hasErrors('firstNameUkr')} ? 'input-icon right' : ''">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">FirstUkr Name</span>
+                            <span class="input-group-text" th:text="#{admin.allusers.first.name.native}"></span>
                             <input type="text"  class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="firstNameUkr" th:field="*{firstNameUkr}">
-                        </div>
                     </div>
                     <div th:if="${#fields.hasErrors('firstNameUkr')}" class="alert alert-danger" role="alert">
                         <i th:text="#{regex.firstNameUkr.error}"></i>
@@ -90,10 +87,8 @@
 
 
                     <div class="input-group mb-3 form-group" th:classappend="${#fields.hasErrors('lastNameUkr')} ? 'input-icon right' : ''">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">LastUkr Name</span>
+                            <span class="input-group-text" th:text="#{admin.allusers.last.name.native}"></span>
                             <input type="text"  class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="lastNameUkr" th:field="*{lastNameUkr}" >
-                        </div>
                     </div>
                     <div th:if="${#fields.hasErrors('lastNameUkr')}" class="alert alert-danger" role="alert">
                         <i th:text="#{regex.lastNameUkr.error}"></i>
@@ -101,13 +96,10 @@
                     <!-------------------------------->
 
                     <div class="input-group mb-3 form-group" th:classappend="${#fields.hasErrors('role')} ? 'input-icon right' : ''">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" for="inputGroupSelect01">Role</label>
-                        </div>
+                        <span class="input-group-text" th:text="#{admin.allusers.role}"></span>
                         <select name="role" class="custom-select" id="inputGroupSelect01">
-                            <option name="role"   value="ROLE_USER" >USER</option>
-                            <option name="role" value="ROLE_ADMIN" >ADMIN</option>
-                            <!--TODO selected name-->
+                            <option name="role"   value="ROLE_USER" th:text="#{user}">USER</option>
+                            <option name="role" value="ROLE_ADMIN" th:text="#{admin}"></option>
                         </select>
                     </div>
                 </div>
@@ -126,18 +118,18 @@
 </footer>
 <script type="text/javascript" src="/js/language.js" ></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script>
+<script th:inline="javascript">
     var alertt = [[${upd}]]
     if (alertt === 0){
         swal({
             icon:"error",
-            text:"exist"
+            text:[[#{user.exist}]]
         });
     }
     if (alertt === 1){
         swal({
             icon:"error",
-            text:"regex"
+            text:[[#{user.regex}]]
         });
     }
 </script>

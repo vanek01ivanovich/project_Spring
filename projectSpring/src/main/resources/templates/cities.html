@@ -11,7 +11,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title th:text="#{title.destinations}"></title>
 </head>
 <body>
 <header>
@@ -20,10 +20,10 @@
 
         <div class="navigationBar">
             <div class="info">
-                <i style="color: white">Hi,</i>
+                <i style="color: white" th:text="#{hi}"></i>
                 <i style="color: white" th:text="${user.username}"></i>!
                 <br>
-                <i style="color: white">Your money </i>
+                <i style="color: white" th:text="#{money}"></i>
                 <i style="color: white" th:text="${user.money}"></i>
                 <i style="color: white">&#x20AC;</i>
             </div>
@@ -31,8 +31,7 @@
                 <button class="btn btn-outline-warning" type="submit" th:text="#{logout.button}"></button>
             </form>
             <div class="dropdown">
-                <button class="lang btn btn-outline-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Languages
+                <button th:text="#{languages}" class="lang btn btn-outline-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <button type="button" class="dropdown-item btn btn-outline-dark" id="en" th:text="#{en}"></button>

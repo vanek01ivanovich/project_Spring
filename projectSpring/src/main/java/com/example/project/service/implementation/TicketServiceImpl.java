@@ -17,13 +17,12 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class TicketServiceImpl implements TicketService {
+
+    private ResourceBundle resourceBundle = ResourceBundle.getBundle("databaseRequest");
 
     private TicketRepository ticketRepository;
     private UserRepository userRepository;
@@ -32,15 +31,7 @@ public class TicketServiceImpl implements TicketService {
     @PersistenceContext
     private EntityManager entityManager;
 
-    private final String sqlFindAllTickets = "SELECT ticket.idticket," +
-        " users.user_name,users.first_name,users.last_name,users.first_name_ukr,users.last_name_ukr," +
-        "destinations.departure,destinations.departureUA,destinations.arrival,destinations.arrivalUA," +
-        " property.date_departure,property.date_arrival,property.time_departure,property.time_arrival,property.price," +
-        "train.trainName,train.trainNameUA" +
-        " from ticket join users on ticket.users_idusers = users.idusers join property " +
-        "on ticket.property_idproperty = property.idproperty join destinations " +
-        "on  property.destinations_iddestinations = destinations.iddestinations " +
-        "join train on property.train_idtrain = train.idtrain";
+    private final String FIND_ALL_TICKETS = "find.all.tickets";
 
     @Autowired
     public TicketServiceImpl(TicketRepository ticketRepository,UserRepository userRepository){
@@ -48,6 +39,11 @@ public class TicketServiceImpl implements TicketService {
         this.userRepository = userRepository;
     }
 
+    /**
+     * Method that add ticket to db
+     * @param ticket needed for adding
+     * @return boolean value if adding was successful
+     */
     @Override
     public boolean addTicket(DestinationProperty ticket) {
         authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -56,26 +52,22 @@ public class TicketServiceImpl implements TicketService {
             return false;
         }else{
             Optional<User> admin = userRepository.findUserByUserName("admin01");
-            //admin.get().setMoney(admin.get().getMoney()+ticket.getPrice());
             userRepository.updateUserMoney(admin.get().getMoney()+ticket.getPrice(),"admin01");
             userRepository.updateUserMoney(user.getMoney()-ticket.getPrice(),user.getUsername());
             ticketRepository.addApplication(user.getIdUser(),ticket.getIdProperty());
             user.setMoney(user.getMoney()-ticket.getPrice());
             return true;
         }
-        //ticketRepository.addApplication(user.getIdUser(),ticket.getIdProperty());
     }
 
-    /*@Override
-    public void addTicket(Integer idTicketProperty) {
-        authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetailsImpl user  = (UserDetailsImpl) authentication.getPrincipal();
-        ticketRepository.addApplication(user.getIdUser(),idTicketProperty);
-    }*/
 
+    /**
+     * Method that find all tickets from db
+     * @return list of ticket object
+     */
     @Override
     public List<User> findAllTickets() {
-        List<Object[]> results = entityManager.createNativeQuery(sqlFindAllTickets).getResultList();
+        List<Object[]> results = entityManager.createNativeQuery(resourceBundle.getString(FIND_ALL_TICKETS)).getResultList();
         UserTicketMapper userTicketMapper = new UserTicketMapper();
 
         try {

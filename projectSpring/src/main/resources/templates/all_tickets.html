@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.w3.org/1999/xhtml" >
+<html xmlns:th="http://www.thymeleaf.org">
+<!--<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/css/allstaff.css">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
@@ -12,7 +14,7 @@
 
     <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title th:text="#{title.admin.look.all.tickets}"></title>
     <style>
         input{
             border: none;
@@ -36,11 +38,10 @@
         <a class="navbar-brand" href="/admin">HOME</a>
         <div class="navigationBar">
             <form class="logout" action="/logout">
-                <button type="submit" th:text="#{logout.button}"></button>
+                <button type="submit" class="btn btn-outline-warning" th:text="#{logout.button}"></button>
             </form>
             <div class="dropdown">
-                <button class="lang btn btn-outline-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Languages
+                <button th:text="#{languages}" class="lang btn btn-outline-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <button type="button" class="dropdown-item btn btn-outline-dark" id="en" th:text="#{en}"></button>
@@ -48,15 +49,6 @@
                 </div>
             </div>
         </div>
-       <!-- <div class="dropdown">
-            <button class="lang btn btn-outline-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Languages
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <button type="button" class="dropdown-item btn btn-outline-dark" id="en" th:text="#{en}"></button>
-                <button type="button" class="dropdown-item btn btn-outline-dark" id="ukr" th:text="#{ua}"></button>
-            </div>
-        </div>-->
     </nav>
 
 </header>
@@ -77,7 +69,8 @@
         </tr>
     </thead>
     <tbody>
-        <tr th:each="ticket : ${allTickets}">
+       <!-- <tr th:each="ticket : ${allTickets}">-->
+        <tr th:each="ticket : ${page.content}">
             <form name="form">
 
             <!-------------------EN---------------------->
@@ -127,12 +120,42 @@
     </tbody>
 </table>
 
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        <!--<div class="pagination-div" >-->
+        <li class="page-item">
+            <span th:if="${page.hasPrevious()}" th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}">
+
+                <a class="pag page-link" th:href="@{${urlBuilder.replaceQueryParam('page',__${page.number-1}__).toUriString()}}">Previous</a>
+            </span>
+        </li>
+        <li class="page-item" style="display: contents">
+            <th:block th:each="i: ${#numbers.sequence(0, page.totalPages - 1)}">
+                <span th:if="${page.number == i}" class="selected pag page-link">[[${i}+1]]</span>
+                <span th:unless="${page.number == i}"  th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}">
+
+                 <a class="pag page-link" th:href="@{${urlBuilder.replaceQueryParam('page',__${i}__).toUriString()}}">[[${i}+1]]</a>
+                </span>
+            </th:block>
+        </li>
+        <li class="page-item">
+            <span th:if="${page.hasNext()}" th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}">
+                <a class="pag page-link" id="page" th:href="@{${urlBuilder.replaceQueryParam('page',__${page.number+1}__).toUriString()}}">Next</a>
+            </span>
+        </li>
+    </ul>
+    <!--</div>-->
+</nav>
+
+
 <footer class="text-white bg-dark">
     <div id="footer" class="card-footer text-muted text-white bg-dark">© 2020 Copyright:All rights reserved</div>
 </footer>
 
 <script type="text/javascript" src="/js/language.js" ></script>
+<script type="text/javascript" src="/js/pagination.js"></script>
 <script type="text/javascript" src="/js/main.js"></script>
+<script type="text/javascript" src="/js/allTickets.js"></script>
 
 </body>
 </html>

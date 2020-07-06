@@ -17,37 +17,29 @@ import javax.persistence.PersistenceContext;
 import javax.print.attribute.standard.Destination;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 @Service
 public class DestinationsPropertyServiceImpl implements DestinationsPropertyService {
 
-
-
-
-
     @PersistenceContext
     private EntityManager entityManager;
+    private ResourceBundle resourceBundle = ResourceBundle.getBundle("databaseRequest");
 
-    final String sqlFindByStationsAndDate = "SELECT  destinations.*,property.*,train.* " +
-            "FROM myrailwaydb.property join destinations on property.destinations_iddestinations = destinations.iddestinations " +
-            "join train on property.train_idtrain = train.idtrain where departure = ? and " +
-            "arrival = ? and date_departure = ?";
+    private final String FIND_DESTINATIONS = "find.destinations.by.station.and.date";
+    private final String FIND_UKRAINIAN_DESTINATIONS = "find.destinations.by.ukrainian.station.and.date";
 
-    final String sqlFindByUkrainianStationsAndDate = "SELECT  destinations.*,property.*,train.* " +
-            "FROM myrailwaydb.property join destinations on property.destinations_iddestinations = destinations.iddestinations " +
-            "join train on property.train_idtrain = train.idtrain where departureUA = ? and " +
-            "arrivalUA = ? and date_departure = ?";
-
+    /**
+     * Find english or ukrainian destinations by object Application
+     * @param application needed for finding destinations
+     * @return list of DestinationProperty object
+     */
     @Override
     public List<DestinationProperty> findAllDestinationsByApplication(Application application) {
         Locale locale = LocaleContextHolder.getLocale();
         List<Object[]> results = entityManager.createNativeQuery(locale == Locale.ENGLISH ?
-                                                                sqlFindByStationsAndDate:
-                                                                sqlFindByUkrainianStationsAndDate)
+                                                                resourceBundle.getString(FIND_DESTINATIONS):
+                                                                resourceBundle.getString(FIND_UKRAINIAN_DESTINATIONS))
                 .setParameter(1,locale == Locale.ENGLISH ? application.getStationFrom():application.getStationFromUkr())
                 .setParameter(2,locale == Locale.ENGLISH ? application.getStationTo():application.getStationToUkr())
                 .setParameter(3,application.getDate())
@@ -64,4 +56,6 @@ public class DestinationsPropertyServiceImpl implements DestinationsPropertyServ
         }
         return null;
     }
+
+
 }

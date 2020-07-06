@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title th:text="#{title.ticket}"></title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous">
@@ -17,20 +17,23 @@
     <nav class="navbar navbar-dark bg-dark">
         <a class="navbar-brand" href="/users">HOME</a>
         <div class="navigationBar">
-            <div class="info">
-                <i style="color: white">Hi,</i>
-                <i style="color: white" th:text="${user.username}"></i>!
-                <br>
-                <p style="color: white">Your money </p>
-                <i style="color: white" th:text="${user.money}"></i>
-                <i style="color: white">&#x20AC;</i>
+            <div>
+                <div class="info">
+                    <i style="color: white" th:text="#{hi}"></i>
+                    <i style="color: white" th:text="${user.username}"></i>
+                    <i style="color: white">!</i>
+                </div>
+                <div class="info">
+                    <i style="color: white" th:text="#{money}"></i>
+                    <i style="color: white" th:text="${user.money}"></i>
+                    <i style="color: white">&#x20AC;</i>
+                </div>
             </div>
             <form class="logout"     action="/logout">
                 <button class="btn btn-outline-warning" type="submit" th:text="#{logout.button}"></button>
             </form>
             <div class="dropdown">
-                <button class="lang btn btn-outline-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Languages
+                <button th:text="#{languages}" class="lang btn btn-outline-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <button type="button" class="dropdown-item btn btn-outline-dark" id="en" th:text="#{en}"></button>
@@ -43,8 +46,7 @@
 </header>
 <form method="post">
     <div class="container card text-center">
-        <div class="card-header">
-           Ticket
+        <div th:text="#{title.ticket}" class="card-header">
         </div>
 
 
@@ -54,27 +56,27 @@
 
             <!-----------------EN--------------------->
             <div class="tic" th:if="${type} == 'hidden'" th:each="user : ${user}" >
-                <span>First name</span>
+                <span th:text="#{admin.all.ticket.first.name}"></span>
                 <i th:text="${user.firstName}"></i>
             </div>
 
             <div class="tic" th:if="${type} == 'hidden'" th:each="user : ${user}" >
-                <span>First name</span>
+                <span th:text="#{admin.all.ticket.last.name}"></span>
                 <i th:text="${user.lastName}"></i>
             </div>
 
             <div class="tic" th:if="${type} == 'hidden'" th:each="des : ${ticket.destinations}">
-                <span>Destination</span>
+                <span th:text="#{find.route.from}"></span>
                 <i th:text="${des.departure}"></i>
             </div>
 
             <div class="tic" th:if="${type} == 'hidden'" th:each="des : ${ticket.destinations}">
-                <span>Arrival</span>
+                <span th:text="#{find.route.to}"></span>
                 <i th:text="${des.arrival}"></i>
             </div>
 
             <div class="tic" th:if="${type} == 'hidden'" th:each="des : ${ticket.trains}">
-                <span>Train</span>
+                <span th:text="#{admin.all.tickets.train.name}"></span>
                 <i th:text="${des.trainName}"></i>
             </div>
 
@@ -84,47 +86,49 @@
             <!-----------------UKR--------------------->
 
             <div class="tic" th:if="${type} == 'NotHidden'" th:each="user : ${user}" >
-                <span>First name</span>
+                <span th:text="#{admin.all.ticket.first.name}"></span>
                 <i th:text="${user.firstNameUkr}"></i>
             </div>
 
             <div class="tic" th:if="${type} == 'NotHidden'" th:each="user : ${user}" >
-                <span>First name</span>
+                <span th:text="#{admin.all.ticket.last.name}"></span>
                 <i th:text="${user.lastNameUkr}"></i>
             </div>
 
             <div class="tic" th:if="${type} == 'NotHidden'" th:each="des : ${ticket.destinations}">
-                <span>Destination</span>
+                <span th:text="#{find.route.from}"></span>
                 <i th:text="${des.departureUA}"></i>
             </div>
 
             <div class="tic" th:if="${type} == 'NotHidden'" th:each="des : ${ticket.destinations}">
-                <span>Arrival</span>
+                <span th:text="#{find.route.to}"></span>
                 <i th:text="${des.arrivalUA}"></i>
             </div>
 
             <div class="tic" th:if="${type} == 'NotHidden'" th:each="des : ${ticket.trains}">
-                <span>Train</span>
+                <span th:text="#{admin.all.tickets.train.name}"></span>
                 <i th:text="${des.trainNameUkr}"></i>
             </div>
 
             <!-----------------UKR--------------------->
 
             <div class="tic">
-                <span>Date departure/</span>
-                <span>Time departure</span>
+                <span th:text="#{admin.all.tickets.date.departure}"></span>
+                <span>/</span>
+                <span th:text="#{admin.all.tickets.time.departure}"></span>
                 <i th:text="${ticket.dateDeparture}"></i>
                 <i th:text="${ticket.timeDeparture}"></i>
             </div>
             <div class="tic">
-                <span>Date arrival/</span>
-                <span>Time arrival</span>
+                <span th:text="#{admin.all.tickets.date.arrival}"></span>
+                <span>/</span>
+                <span th:text="#{admin.all.tickets.time.arrival}"></span>
                 <i th:text="${ticket.dateArrival}"></i>
                 <i th:text="${ticket.timeArrival}"></i>
             </div>
 
             <div class="tic">
-                <span>dep</span>
+                <span th:text="#{admin.all.tickets.price}"></span>
                 <i th:text="${ticket.price}"></i>
             </div>
 
@@ -132,7 +136,7 @@
 
 
         <div class="card-footer text-muted">
-             <button id="sub" type="submit">Submit</button>
+             <button id="sub" type="submit" th:text="#{submit.sig.in.button}"></button>
         </div>
 
     </div>
@@ -147,18 +151,18 @@
 
 <script type="text/javascript" src="/js/language.js" ></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script>
+<script th:inline="javascript">
     var alertt = [[${alert}]]
     if (alertt === false){
         swal({
             icon:"error",
-            text:"problem"
+            text:[[#{not.enough.money}]]
         });
     }
     if (alertt === true){
         swal({
             icon:"success",
-            text:"success"
+            text:[[#{success.ticket}]]
         });
     }
 </script>

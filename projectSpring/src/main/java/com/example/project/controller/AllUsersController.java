@@ -3,8 +3,13 @@ package com.example.project.controller;
 
 import com.example.project.entity.User;
 import com.example.project.service.UserDetailsImpl;
+import com.example.project.service.implementation.PageServiceImpl;
 import com.example.project.service.implementation.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -27,26 +32,45 @@ public class AllUsersController {
 
     private UserServiceImpl userServiceImpl;
     private static List<User> allUsers;
+    private UserDetailsImpl user;
+    private static Page<User> pages;
+    private  PageServiceImpl pageService = new PageServiceImpl();
 
     @Autowired
     public AllUsersController(UserServiceImpl userServiceImpl){
         this.userServiceImpl = userServiceImpl;
     }
 
+    /**
+     * GET method for getting all users
+     * Method has pagination
+     * @param model needed for setting attributes
+     * @return modelAndView object
+     */
     @RequestMapping(value = "/allusers",method = RequestMethod.GET)
-    public ModelAndView lookAllUsers(Model model){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetailsImpl user = (UserDetailsImpl) authentication.getPrincipal();
+    public ModelAndView lookAllUsers(@RequestParam(name = "page",required = false) String page,
+                                     @PageableDefault(size = 10) Pageable pageable,
+                                     ModelAndView modelAndView,Model model){
+
         userServiceImpl.getLocale(model);
+        user = userServiceImpl.getUserContext();
         allUsers = userServiceImpl.getAllUsers();
         allUsers.removeIf(u -> u.getUserName().equals(user.getUsername()));
         allUsers.removeIf(u -> u.getUserName().equals("admin01"));
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("allUsers",allUsers);
+        pages = (Page<User>) pageService.pagination(page,pageable,allUsers);
+        modelAndView.addObject("page",pages);
         modelAndView.setViewName("all_users");
         return modelAndView;
     }
 
+    /**
+     * POST method for allUsers page
+     * Method can choose the user that you need
+     * @param id needed for choosing user from list of all users
+     * @param redirectAttributes needed for setting redirecting attributes
+     * @param model needed for setting attributes
+     * @return modelAndView object
+     */
     @RequestMapping(value = "/allusers",method = RequestMethod.POST)
     public ModelAndView lookAllUsers(@RequestParam(name = "id") String id,RedirectAttributes redirectAttributes,Model model){
         User user = userServiceImpl.getCurrentUser(allUsers,Integer.parseInt(id));

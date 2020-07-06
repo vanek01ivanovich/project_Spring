@@ -66,4 +66,22 @@ class UserServiceImplTest {
         boolean isExistUserName = userServiceImpl.existsUserByUserName(user.getUserName());
         Assert.assertTrue(isExistUserName);
     }
+
+    @Test
+    void updateUser(){
+        User user = new User();
+        user.setUserName("ivan01");
+        user.setFirstName("Ivan");
+        user.setFirstNameUkr("Іван");
+        user.setLastName("Ivanov");
+        user.setLastNameUkr("Іванов");
+        user.setRole(RoleStatus.ROLE_USER);
+        String oldUserName = "ivan01";
+        userRepository.updateUser(user.getUserName(),user.getFirstName(),
+                user.getFirstNameUkr(),user.getLastName(),user.getLastNameUkr(),
+                user.getRole().toString(),oldUserName);
+        Mockito.verify(userRepository,Mockito.times(1)).updateUser(user.getUserName(),user.getFirstName(),
+                user.getFirstNameUkr(),user.getLastName(),user.getLastNameUkr(),
+                user.getRole().toString(),oldUserName);
+    }
 }

@@ -51,7 +51,6 @@ public class User {
     @Column(name = "money")
     private int money;
 
-
     @Column(name = "card_number")
     private int cardNumber;
 
